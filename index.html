@@ -34,8 +34,8 @@
         <div id="start-screen" class="text-center bg-white p-8 rounded-xl shadow-lg">
             <h1 class="text-3xl md:text-4xl font-bold text-gray-700 mb-2">Shahrirar's Medical Academy</h1>
             <p class="text-xl text-gray-600 mb-6">Mock Exam</p>
-            <p class="text-gray-500 mb-2">You will have <span class="font-bold">45 minutes</span> to complete <span class="font-bold">20 questions</span>.</p>
-            <p class="text-gray-500 mb-8">The pass mark is <span class="font-bold">15 out of 20</span>.</p>
+            <p class="text-gray-500 mb-2">You will have <span class="font-bold">60 minutes</span> to complete <span class="font-bold">50 questions</span>.</p>
+            <p class="text-gray-500 mb-8">The pass mark is <span class="font-bold">25 out of 50</span>.</p>
             <button id="start-btn" class="bg-blue-600 text-white font-bold py-3 px-10 rounded-lg hover:bg-blue-700 transition-colors text-lg shadow-md">
                 Start Exam
             </button>
@@ -46,7 +46,7 @@
             <div class="bg-white p-4 sm:p-6 rounded-xl shadow-lg sticky top-0 z-10 mb-6">
                 <div class="flex justify-between items-center">
                     <h2 class="text-xl font-bold text-gray-700">Shahrirar's Medical Academy</h2>
-                    <div id="timer" class="text-xl font-bold bg-blue-100 text-blue-700 px-4 py-2 rounded-lg">45:00</div>
+                    <div id="timer" class="text-xl font-bold bg-blue-100 text-blue-700 px-4 py-2 rounded-lg">60:00</div>
                 </div>
             </div>
 
@@ -79,246 +79,309 @@
 
     <script>
         const quizData = [
+            // Original 20 Questions
             {
                 question: "1. A 25-year-old male presents to the ED after a fall onto an outstretched hand. His left elbow is visibly deformed and he is in severe pain. An X-ray confirms a posterior elbow dislocation. On examination, you note he is unable to extend his thumb (\"hitchhiker's sign\"). What is the most appropriate immediate management?",
-                options: [
-                    "A) Application of an arm sling and outpatient orthopedic follow-up",
-                    "B) Immediate closed reduction of the dislocation in the ED under procedural sedation",
-                    "C) Urgent transfer to the operating theatre for open reduction and internal fixation",
-                    "D) CT angiogram to rule out vascular injury",
-                    "E) Application of a backslab and admission for observation"
-                ],
+                options: ["A) Application of an arm sling and outpatient orthopedic follow-up", "B) Immediate closed reduction of the dislocation in the ED under procedural sedation", "C) Urgent transfer to the operating theatre for open reduction and internal fixation", "D) CT angiogram to rule out vascular injury", "E) Application of a backslab and admission for observation"],
                 answer: "B) Immediate closed reduction of the dislocation in the ED under procedural sedation",
                 explanation: "An elbow dislocation is an orthopedic emergency. The inability to extend the thumb suggests a posterior interosseous nerve injury, which is often a temporary traction injury (neurapraxia) that is likely to recover once the joint is reduced. Prompt reduction is the priority."
             },
             {
                 question: "2. A 22-year-old elite rugby player presents with his fifth anterior shoulder dislocation in the past year. Each time, it has been successfully reduced in the ED. He is keen to return to playing as soon as possible. What is the most definitive management for his condition?",
-                options: [
-                    "A) Intensive physiotherapy focusing on rotator cuff strengthening",
-                    "B) A prolonged period of shoulder immobilisation in a sling",
-                    "C) Referral for surgical fixation (e.g., Bankart repair or Latarjet procedure)",
-                    "D) Activity modification to avoid contact sports permanently",
-                    "E) Regular intra-articular steroid injections for pain management"
-                ],
+                options: ["A) Intensive physiotherapy focusing on rotator cuff strengthening", "B) A prolonged period of shoulder immobilisation in a sling", "C) Referral for surgical fixation (e.g., Bankart repair or Latarjet procedure)", "D) Activity modification to avoid contact sports permanently", "E) Regular intra-articular steroid injections for pain management"],
                 answer: "C) Referral for surgical fixation (e.g., Bankart repair or Latarjet procedure)",
                 explanation: "In a young, active patient with recurrent instability, the soft tissue stabilizers (labrum, ligaments) are often permanently damaged. Physiotherapy alone is insufficient, and surgery is required to restore stability and prevent long-term joint damage."
             },
             {
                 question: "3. The mother of a 6-month-old girl is concerned about a large, raised, red lesion on her daughter's left upper eyelid that has been growing since birth. You diagnose an infantile hemangioma. The mother expresses fear of medication and refuses your initial recommendation of topical timolol. What is the most appropriate next step?",
-                options: [
-                    "A) Reassure the mother that these lesions usually resolve spontaneously and require no treatment.",
-                    "B) Refer the child for surgical excision of the lesion.",
-                    "C) Prescribe oral propranolol without further discussion.",
-                    "D) Gently explain the risk of amblyopia (vision loss) from the eyelid obstruction and re-offer treatment.",
-                    "E) Document the mother's refusal and schedule a follow-up in 6 months."
-                ],
+                options: ["A) Reassure the mother that these lesions usually resolve spontaneously and require no treatment.", "B) Refer the child for surgical excision of the lesion.", "C) Prescribe oral propranolol without further discussion.", "D) Gently explain the risk of amblyopia (vision loss) from the eyelid obstruction and re-offer treatment.", "E) Document the mother's refusal and schedule a follow-up in 6 months."],
                 answer: "D) Gently explain the risk of amblyopia (vision loss) from the eyelid obstruction and re-offer treatment.",
                 explanation: "The physician's duty is to advocate for the child. An eyelid hemangioma can obstruct the visual axis, leading to permanent vision loss (amblyopia). The next step is to ensure the parents fully understand this serious risk to make an informed decision."
             },
             {
                 question: "4. A newborn's screening test shows a highly elevated immunoreactive trypsinogen (IRT) level. A repeat test at two weeks is also elevated. Genetic testing for common CFTR mutations is not readily available at your centre. What is the definitive diagnostic test?",
-                options: [
-                    "A) Chest X-ray",
-                    "B) Stool elastase measurement",
-                    "C) Sweat chloride test",
-                    "D) Pancreatic ultrasound",
-                    "E) empiric trial of pancreatic enzymes"
-                ],
+                options: ["A) Chest X-ray", "B) Stool elastase measurement", "C) Sweat chloride test", "D) Pancreatic ultrasound", "E) empiric trial of pancreatic enzymes"],
                 answer: "C) Sweat chloride test",
                 explanation: "The sweat chloride test is the gold standard for diagnosing cystic fibrosis (CF). Elevated IRT is a screening indicator but not diagnostic. The sweat test demonstrates the dysfunction of the CFTR protein, which is the underlying cause of CF."
             },
             {
                 question: "5. An 8-year-old boy is brought in by his parents due to concerns about repetitive movements. They report that for the past year, he has had periods of excessive eye blinking and shoulder shrugging. Over the last three months, he has also developed a sniffing and throat-clearing sound. These movements worsen with stress. What is the most likely diagnosis?",
-                options: [
-                    "A) Simple motor tic disorder",
-                    "B) Obsessive-compulsive disorder (OCD)",
-                    "C) Tourette syndrome",
-                    "D) ADHD",
-                    "E) Seizure disorder"
-                ],
+                options: ["A) Simple motor tic disorder", "B) Obsessive-compulsive disorder (OCD)", "C) Tourette syndrome", "D) ADHD", "E) Seizure disorder"],
                 answer: "C) Tourette syndrome",
                 explanation: "The diagnosis of Tourette syndrome requires at least two motor tics and at least one vocal tic, present for over a year, with onset before age 18. The patient's history meets these criteria perfectly."
             },
             {
                 question: "6. A 52-year-old woman, whose last menstrual period was 18 months ago, presents with severe hot flushes and night sweats that are affecting her quality of life. She has no personal history of breast cancer, VTE, or heart disease. She has an intact uterus. What is the most appropriate MHT regimen for her?",
-                options: [
-                    "A) Estrogen-only therapy",
-                    "B) Tibolone",
-                    "C) Combined continuous estrogen and progesterone therapy",
-                    "D) An SSRI such as venlafaxine",
-                    "E) Testosterone implants"
-                ],
+                options: ["A) Estrogen-only therapy", "B) Tibolone", "C) Combined continuous estrogen and progesterone therapy", "D) An SSRI such as venlafaxine", "E) Testosterone implants"],
                 answer: "C) Combined continuous estrogen and progesterone therapy",
                 explanation: "In a woman with a uterus, estrogen-only therapy increases the risk of endometrial cancer. A progestogen must be included to protect the endometrium. A continuous combined regimen is a standard option."
             },
             {
                 question: "7. A patient who is 14 weeks pregnant presents to the emergency department with an inability to pass urine for 12 hours. On examination, her bladder is palpably distended. On vaginal examination, the cervix is positioned very anteriorly and high up behind the pubic symphysis. What is the most likely cause of her urinary retention?",
-                options: [
-                    "A) A urinary tract infection",
-                    "B) An incarcerated retroverted uterus",
-                    "C) A large ovarian cyst",
-                    "D) A fibroid compressing the urethra",
-                    "E) Neurological dysfunction"
-                ],
+                options: ["A) A urinary tract infection", "B) An incarcerated retroverted uterus", "C) A large ovarian cyst", "D) A fibroid compressing the urethra", "E) Neurological dysfunction"],
                 answer: "B) An incarcerated retroverted uterus",
                 explanation: "This is the classic presentation where a growing, retroverted uterus becomes trapped in the pelvis, pushing the cervix up and forward, which stretches and obstructs the urethra."
             },
             {
                 question: "8. A 35-year-old G2P1 woman, with a history of a previous lower segment caesarean section, is in active labor. She suddenly screams in pain, reporting severe, constant abdominal pain. Her contractions, which were previously strong, abruptly stop. You note some vaginal bleeding, and the fetal heart rate drops to 60 bpm. On vaginal examination, the baby's head is no longer palpable. What is the most likely diagnosis?",
-                options: [
-                    "A) Placental abruption",
-                    "B) Uterine rupture",
-                    "C) Cord prolapse",
-                    "D) Amniotic fluid embolism",
-                    "E) Vasa previa"
-                ],
+                options: ["A) Placental abruption", "B) Uterine rupture", "C) Cord prolapse", "D) Amniotic fluid embolism", "E) Vasa previa"],
                 answer: "B) Uterine rupture",
                 explanation: "The triad of ceasing contractions, loss of fetal station, and profound fetal bradycardia is pathognomonic for a catastrophic uterine rupture, which is an emergency."
             },
             {
                 question: "9. A 28-year-old G1P0 woman has a routine vaginal swab at 36 weeks gestation which comes back positive for Group B Streptococcus (GBS). She is asymptomatic. What is the recommended management?",
-                options: [
-                    "A) Prescribe a course of oral amoxicillin immediately.",
-                    "B) Schedule an elective caesarean section to avoid transmission.",
-                    "C) Intrapartum antibiotic prophylaxis (IAP) with intravenous penicillin.",
-                    "D) No treatment is required as she is only a carrier.",
-                    "E) Treat with vaginal chlorhexidine washes during labour."
-                ],
+                options: ["A) Prescribe a course of oral amoxicillin immediately.", "B) Schedule an elective caesarean section to avoid transmission.", "C) Intrapartum antibiotic prophylaxis (IAP) with intravenous penicillin.", "D) No treatment is required as she is only a carrier.", "E) Treat with vaginal chlorhexidine washes during labour."],
                 answer: "C) Intrapartum antibiotic prophylaxis (IAP) with intravenous penicillin.",
                 explanation: "The standard of care is to give IV penicillin during labor (intrapartum) to prevent transmission to the newborn, which can cause serious neonatal infections. Treatment before labor is ineffective."
             },
             {
                 question: "10. You are a GP in a small town. A patient you have been treating for anxiety tells you she is being bullied at work by her boss, making her symptoms worse. You realize that her boss is a close personal friend of yours. What is the most appropriate course of action?",
-                options: [
-                    "A) Call your friend (the boss) to discuss the situation and mediate.",
-                    "B) Tell the patient you cannot be objective and transfer her care to another doctor.",
-                    "C) Advise the patient on her rights and options for reporting workplace issues.",
-                    "D) Prescribe an increased dose of anxiolytic medication for the patient.",
-                    "E) Document the conversation and take no further action."
-                ],
+                options: ["A) Call your friend (the boss) to discuss the situation and mediate.", "B) Tell the patient you cannot be objective and transfer her care to another doctor.", "C) Advise the patient on her rights and options for reporting workplace issues.", "D) Prescribe an increased dose of anxiolytic medication for the patient.", "E) Document the conversation and take no further action."],
                 answer: "C) Advise the patient on her rights and options for reporting workplace issues.",
                 explanation: "The GP's primary duty is to the patient. The correct action is to empower the patient with impartial advice and resources, without breaching confidentiality or acting on the dual relationship."
             },
             {
                 question: "11. A 60-year-old man falls from a ladder in a remote rural location. He is brought to the local clinic with a GCS of 4. He is immediately intubated and ventilated. The nearest trauma centre is a 3-hour flight away. What is the most important intervention to initiate while awaiting retrieval?",
-                options: [
-                    "A) Administer a bolus of 20% Mannitol.",
-                    "B) Administer high-dose steroids.",
-                    "C) Induce hypothermia.",
-                    "D) Obtain a CT scan of the head.",
-                    "E) Administer prophylactic antibiotics."
-                ],
+                options: ["A) Administer a bolus of 20% Mannitol.", "B) Administer high-dose steroids.", "C) Induce hypothermia.", "D) Obtain a CT scan of the head.", "E) Administer prophylactic antibiotics."],
                 answer: "A) Administer a bolus of 20% Mannitol.",
                 explanation: "A GCS of 4 indicates a severe traumatic brain injury with high risk of elevated intracranial pressure (ICP). Administering an osmotic agent like mannitol is a critical first-line measure to reduce cerebral edema and lower ICP while awaiting transfer."
             },
             {
                 question: "12. A 48-year-old man presents with a 2-day history of left-sided weakness. A CT scan of his brain shows an acute infarct in the right middle cerebral artery territory. His blood work is positive for ANA, anticardiolipin antibodies, and anti-dsDNA antibodies. What is the most appropriate long-term management?",
-                options: [
-                    "A) Immunosuppressants and anticoagulants.",
-                    "B) Aspirin only.",
-                    "C) Statin therapy only.",
-                    "D) Thrombolysis with tPA.",
-                    "E) Physiotherapy and rehabilitation only."
-                ],
+                options: ["A) Immunosuppressants and anticoagulants.", "B) Aspirin only.", "C) Statin therapy only.", "D) Thrombolysis with tPA.", "E) Physiotherapy and rehabilitation only."],
                 answer: "A) Immunosuppressants and anticoagulants.",
                 explanation: "The findings suggest a stroke caused by Antiphospholipid Syndrome (APS) secondary to Systemic Lupus Erythematosus (SLE). Treatment must address both the underlying autoimmunity (immunosuppressants) and the high risk of blood clots (anticoagulation)."
             },
             {
                 question: "13. A 40-year-old woman asks about screening for colorectal cancer. Her father was diagnosed with colorectal cancer at the age of 62. She is otherwise healthy with no symptoms. According to standard guidelines, what is the most appropriate advice?",
-                options: [
-                    "A) Start Faecal Occult Blood Testing (FOBT) annually from age 45.",
-                    "B) Start screening colonoscopy now, and repeat every 5 years.",
-                    "C) Genetic testing for Lynch syndrome.",
-                    "D) No screening is needed until age 50.",
-                    "E) A flexible sigmoidoscopy every 10 years."
-                ],
+                options: ["A) Start Faecal Occult Blood Testing (FOBT) annually from age 45.", "B) Start screening colonoscopy now, and repeat every 5 years.", "C) Genetic testing for Lynch syndrome.", "D) No screening is needed until age 50.", "E) A flexible sigmoidoscopy every 10 years."],
                 answer: "A) Start Faecal Occult Blood Testing (FOBT) annually from age 45.",
                 explanation: "She is considered at average or slightly increased risk. Having one first-degree relative diagnosed over age 60 does not place her in a high-risk category requiring early colonoscopy. Standard guidelines recommend starting screening (like FOBT/FIT) at age 45-50."
             },
             {
                 question: "14. A 24-year-old pregnant woman with hyperemesis gravidarum is given IV metoclopramide. Thirty minutes later, she develops a fixed upward deviation of her eyes and involuntary twisting of her neck. What is the most appropriate treatment?",
-                options: [
-                    "A) Intravenous diazepam.",
-                    "B) Intravenous benztropine or procyclidine.",
-                    "C) Intravenous magnesium sulfate.",
-                    "D) Oral diphenhydramine.",
-                    "E) Reassurance, as this is a self-limiting reaction."
-                ],
+                options: ["A) Intravenous diazepam.", "B) Intravenous benztropine or procyclidine.", "C) Intravenous magnesium sulfate.", "D) Oral diphenhydramine.", "E) Reassurance, as this is a self-limiting reaction."],
                 answer: "B) Intravenous benztropine or procyclidine.",
                 explanation: "This is a classic acute dystonic reaction caused by dopamine blockade. The treatment is an anticholinergic agent like benztropine or procyclidine to rapidly reverse the symptoms."
             },
             {
                 question: "15. A clinical trial compares the efficacy of Hepatitis B Vaccine versus Hepatitis B Immunoglobulin (IG) in preventing infection after exposure. The infection risk in the Vaccine group was 4.4%, and the risk in the IG group was 3.3%. What is the most accurate conclusion that can be drawn from this data alone?",
-                options: [
-                    "A) Hepatitis B IG is statistically significantly better than the vaccine.",
-                    "B) Neither treatment is effective.",
-                    "C) The efficacy of Hepatitis B IG was observed to be better than the vaccine in this trial.",
-                    "D) The vaccine is more cost-effective.",
-                    "E) The number needed to treat is 100."
-                ],
+                options: ["A) Hepatitis B IG is statistically significantly better than the vaccine.", "B) Neither treatment is effective.", "C) The efficacy of Hepatitis B IG was observed to be better than the vaccine in this trial.", "D) The vaccine is more cost-effective.", "E) The number needed to treat is 100."],
                 answer: "C) The efficacy of Hepatitis B IG was observed to be better than the vaccine in this trial.",
                 explanation: "This is the most accurate and cautious interpretation of the provided data. Without statistical analysis (p-values), one can only state what was observed in the sample, not that one is definitively superior."
             },
             {
                 question: "16. An 80-year-old man with a history of heart failure and benign prostatic hyperplasia presents with painful bilateral breast enlargement. His regular medications include spironolactone, ramipril, and tamsulosin. Which of his medications is the most likely cause?",
-                options: [
-                    "A) Spironolactone",
-                    "B) Ramipril",
-                    "C) Tamsulosin",
-                    "D) All three medications",
-                    "E) None of the above"
-                ],
+                options: ["A) Spironolactone", "B) Ramipril", "C) Tamsulosin", "D) All three medications", "E) None of the above"],
                 answer: "A) Spironolactone",
                 explanation: "Spironolactone is a well-known cause of gynecomastia due to its anti-androgenic effects (androgen receptor antagonist)."
             },
             {
                 question: "17. A 75-year-old woman with moderate Alzheimer's disease is brought in by her husband. He reports that she is becoming more forgetful and is starting to wander. He admits he is exhausted and feels he can no longer cope as her sole caregiver. What is the most important aspect of her ongoing management?",
-                options: [
-                    "A) Increasing the dose of her donepezil.",
-                    "B) Prescribing a sedative for her wandering.",
-                    "C) Providing caregiver support and education.",
-                    "D) Admission to a long-term care facility.",
-                    "E) Ordering a repeat MRI of the brain."
-                ],
+                options: ["A) Increasing the dose of her donepezil.", "B) Prescribing a sedative for her wandering.", "C) Providing caregiver support and education.", "D) Admission to a long-term care facility.", "E) Ordering a repeat MRI of the brain."],
                 answer: "C) Providing caregiver support and education.",
                 explanation: "A critical component of dementia management is supporting the caregiver. Caregiver burnout is common and leads to poorer outcomes for both the patient and caregiver. Support can include education, respite care, and support groups."
             },
             {
                 question: "18. A 25-year-old man presents with a history of recurrent chest infections and chronic sinusitis since childhood. He and his partner have also been struggling with infertility. A chest X-ray performed for his cough reveals dextrocardia. What is the most likely underlying diagnosis?",
-                options: [
-                    "A) Cystic Fibrosis",
-                    "B) Young's Syndrome",
-                    "C) Kartagener Syndrome",
-                    "D) Alpha-1 antitrypsin deficiency",
-                    "E) Common variable immunodeficiency"
-                ],
+                options: ["A) Cystic Fibrosis", "B) Young's Syndrome", "C) Kartagener Syndrome", "D) Alpha-1 antitrypsin deficiency", "E) Common variable immunodeficiency"],
                 answer: "C) Kartagener Syndrome",
                 explanation: "Kartagener syndrome is defined by the triad of situs inversus (dextrocardia), chronic sinusitis, and bronchiectasis. The underlying cause is immotile cilia, which also explains the male infertility."
             },
             {
                 question: "19. A 68-year-old man with stable COPD reports increasing breathlessness on exertion. He is currently using ipratropium bromide (a short-acting anticholinergic) as needed, about 3-4 times a day. His FEV1 is 60% of predicted. What is the most appropriate next step in his management?",
-                options: [
-                    "A) A short course of oral corticosteroids.",
-                    "B) A long-acting beta-agonist (LABA) or long-acting muscarinic antagonist (LAMA).",
-                    "C) Long-term oxygen therapy.",
-                    "D) An inhaled corticosteroid (ICS).",
-                    "E) A daily oral theophylline."
-                ],
+                options: ["A) A short course of oral corticosteroids.", "B) A long-acting beta-agonist (LABA) or long-acting muscarinic antagonist (LAMA).", "C) Long-term oxygen therapy.", "D) An inhaled corticosteroid (ICS).", "E) A daily oral theophylline."],
                 answer: "B) A long-acting beta-agonist (LABA) or long-acting muscarinic antagonist (LAMA).",
                 explanation: "For stable COPD requiring more than a short-acting reliever, the standard of care is to add a scheduled long-acting maintenance bronchodilator (LABA or LAMA) to improve symptoms and reduce exacerbations."
             },
             {
                 question: "20. A 65-year-old woman is scheduled for a total knee replacement in two weeks. Her pre-operative blood work shows a hemoglobin of 125 g/L (normal), but her serum ferritin is 15 ng/mL (low). What is the most appropriate management?",
-                options: [
-                    "A) Start oral iron supplements.",
-                    "B) Arrange for an infusion of intravenous (IV) iron.",
-                    "C) Proceed with surgery without any treatment.",
-                    "D) Postpone the surgery for three months.",
-                    "E) Transfuse one unit of packed red blood cells."
-                ],
+                options: ["A) Start oral iron supplements.", "B) Arrange for an infusion of intravenous (IV) iron.", "C) Proceed with surgery without any treatment.", "D) Postpone the surgery for three months.", "E) Transfuse one unit of packed red blood cells."],
                 answer: "B) Arrange for an infusion of intravenous (IV) iron.",
                 explanation: "Correcting iron deficiency before surgery is important. With only two weeks, oral iron is too slow. IV iron will replete iron stores much more quickly and is the preferred method in this pre-operative timeframe."
+            },
+            // Newly Added 30 Questions
+            {
+                question: "21. A 72-year-old male with known atrial fibrillation presents with palpitations. His CHA2DS2-VASc score is 4. Which medication is most crucial for stroke prevention in this patient?",
+                options: ["A) Aspirin", "B) Clopidogrel", "C) Apixaban", "D) Metoprolol", "E) Amiodarone"],
+                answer: "C) Apixaban",
+                explanation: "With a CHA2DS2-VASc score of 2 or greater in a male, oral anticoagulation is strongly recommended to reduce the risk of stroke. Apixaban, a direct oral anticoagulant (DOAC), is a first-line choice. Metoprolol is for rate control, not stroke prevention."
+            },
+            {
+                question: "22. A 30-year-old female complains of well-demarcated, erythematous plaques with silvery scales on her elbows and knees. What is the most likely diagnosis?",
+                options: ["A) Atopic Dermatitis (Eczema)", "B) Psoriasis Vulgaris", "C) Tinea Corporis", "D) Seborrheic Dermatitis", "E) Pityriasis Rosea"],
+                answer: "B) Psoriasis Vulgaris",
+                explanation: "The description of well-demarcated, erythematous plaques with silvery scales on extensor surfaces (elbows, knees) is the classic presentation of psoriasis vulgaris."
+            },
+            {
+                question: "23. A 15-year-old presents with polyuria, polydipsia, weight loss, and fruity-smelling breath. A fingerstick glucose is 550 mg/dL (30.5 mmol/L). What is the most likely diagnosis?",
+                options: ["A) Type 2 Diabetes Mellitus", "B) Diabetes Insipidus", "C) Diabetic Ketoacidosis (DKA)", "D) Hyperosmolar Hyperglycemic State (HHS)", "E) Urinary Tract Infection"],
+                answer: "C) Diabetic Ketoacidosis (DKA)",
+                explanation: "The triad of hyperglycemia, polyuria/polydipsia, and evidence of ketosis (fruity breath) in a young person is characteristic of DKA, a life-threatening complication of Type 1 Diabetes."
+            },
+            {
+                question: "24. A 45-year-old man with a history of heavy alcohol use presents with severe epigastric pain radiating to the back, nausea, and vomiting. Which laboratory finding is most specific for acute pancreatitis?",
+                options: ["A) Elevated Alanine Aminotransferase (ALT)", "B) Elevated white blood cell count", "C) Elevated Serum Lipase", "D) Elevated C-reactive protein (CRP)", "E) Elevated Serum Amylase"],
+                answer: "C) Elevated Serum Lipase",
+                explanation: "While both amylase and lipase are elevated in acute pancreatitis, lipase is more specific to the pancreas and remains elevated for a longer period, making it the more specific diagnostic marker."
+            },
+            {
+                question: "25. A 35-year-old woman reports fatigue and shortness of breath. Her complete blood count shows: Hb 9.5 g/dL, MCV 72 fL, MCH 24 pg. What is the most likely diagnosis?",
+                options: ["A) Anemia of chronic disease", "B) Vitamin B12 deficiency anemia", "C) Folate deficiency anemia", "D) Iron deficiency anemia", "E) Aplastic anemia"],
+                answer: "D) Iron deficiency anemia",
+                explanation: "The combination of low hemoglobin (anemia) with a low mean corpuscular volume (MCV), indicating microcytic cells, is the classic picture of iron deficiency anemia."
+            },
+            {
+                question: "26. A 19-year-old college student is brought to the ED with a high fever, severe headache, neck stiffness, and photophobia. What is the most critical first step in management after securing IV access?",
+                options: ["A) Perform a lumbar puncture immediately", "B) Administer IV dexamethasone and ceftriaxone", "C) Obtain a CT scan of the head", "D) Administer a fluid bolus", "E) Wait for blood culture results"],
+                answer: "B) Administer IV dexamethasone and ceftriaxone",
+                explanation: "In suspected bacterial meningitis, early administration of antibiotics is critical to improve outcomes. Antibiotics should be given immediately after blood cultures are drawn and should not be delayed for imaging or lumbar puncture unless there are specific contraindications."
+            },
+            {
+                question: "27. A 70-year-old man develops acute kidney injury after a bout of severe diarrhea. His blood pressure is 90/60 mmHg. What findings are expected on a urine sample?",
+                options: ["A) High urine sodium, low urine osmolality", "B) Low urine sodium, high urine osmolality", "C) Red blood cell casts", "D) White blood cell casts", "E) High urine glucose"],
+                answer: "B) Low urine sodium, high urine osmolality",
+                explanation: "This is a pre-renal AKI due to dehydration. The kidneys are functioning properly and are trying to conserve volume by avidly reabsorbing sodium (low urine sodium) and water (concentrating the urine, high osmolality)."
+            },
+            {
+                question: "28. A 25-year-old known asthmatic presents with an acute exacerbation, with wheezing and shortness of breath. What is the cornerstone of initial treatment?",
+                options: ["A) Inhaled corticosteroids", "B) Oral antibiotics", "C) Inhaled short-acting beta-agonists (SABA)", "D) Intravenous magnesium", "E) A long-acting muscarinic antagonist (LAMA)"],
+                answer: "C) Inhaled short-acting beta-agonists (SABA)",
+                explanation: "SABAs (e.g., salbutamol/albuterol) provide rapid bronchodilation and are the first-line treatment for acute asthma exacerbations. Systemic corticosteroids are also crucial but SABAs provide the most immediate relief."
+            },
+            {
+                question: "29. A 60-year-old man presents with an exquisitely painful, red, swollen great toe. Aspiration of the joint fluid would most likely reveal what finding under polarized light microscopy?",
+                options: ["A) Positively birefringent, rhomboid-shaped crystals", "B) Gram-positive cocci in clusters", "C) No crystals", "D) Negatively birefringent, needle-shaped crystals", "E) Red blood cells only"],
+                answer: "D) Negatively birefringent, needle-shaped crystals",
+                explanation: "This is the classic description of monosodium urate crystals, which is pathognomonic for gout."
+            },
+            {
+                question: "30. A 22-year-old man is diagnosed with schizophrenia after a first psychotic episode. What is the mainstay of long-term treatment?",
+                options: ["A) Benzodiazepines", "B) Electroconvulsive therapy (ECT)", "C) Antipsychotic medication", "D) Psychotherapy alone", "E) Mood stabilizers"],
+                answer: "C) Antipsychotic medication",
+                explanation: "Antipsychotic medications are the cornerstone of treatment for schizophrenia, effective in treating positive symptoms and preventing relapse."
+            },
+            {
+                question: "31. A 24-year-old female presents with right lower quadrant pain and vaginal spotting. Her last menstrual period was 7 weeks ago, and a home pregnancy test is positive. What diagnosis must be excluded?",
+                options: ["A) Ovarian torsion", "B) Appendicitis", "C) Pelvic inflammatory disease", "D) Ectopic pregnancy", "E) Ruptured ovarian cyst"],
+                answer: "D) Ectopic pregnancy",
+                explanation: "The combination of pain, bleeding, and a positive pregnancy test is highly suspicious for an ectopic pregnancy, which is a life-threatening emergency that must be ruled out immediately."
+            },
+            {
+                question: "32. A 2-year-old boy presents with a 'barking' cough and inspiratory stridor, which is worse at night. What is the most likely diagnosis?",
+                options: ["A) Epiglottitis", "B) Bronchiolitis", "C) Foreign body aspiration", "D) Laryngotracheobronchitis (Croup)", "E) Bacterial tracheitis"],
+                answer: "D) Laryngotracheobronchitis (Croup)",
+                explanation: "The classic barking cough and inspiratory stridor are hallmark features of croup, which is typically caused by the parainfluenza virus."
+            },
+            {
+                question: "33. A 20-year-old presents with anorexia and periumbilical pain that has now migrated to the right iliac fossa. On examination, there is tenderness at McBurney's point. What is the most likely diagnosis?",
+                options: ["A) Gastroenteritis", "B) Acute appendicitis", "C) Crohn's disease", "D) Mesenteric adenitis", "E) Ureteral colic"],
+                answer: "B) Acute appendicitis",
+                explanation: "The migratory nature of the pain from periumbilical to the right iliac fossa, along with anorexia and localized tenderness, is the classic presentation of acute appendicitis."
+            },
+            {
+                question: "34. A 68-year-old man suddenly develops right-sided weakness and aphasia. He arrives at the ED 90 minutes after symptom onset. A CT scan of his head shows no hemorrhage. What is the most appropriate treatment?",
+                options: ["A) High-dose aspirin", "B) Intravenous heparin", "C) Intravenous alteplase (tPA)", "D) Urgent carotid endarterectomy", "E) Observation"],
+                answer: "C) Intravenous alteplase (tPA)",
+                explanation: "For an ischemic stroke, intravenous thrombolysis with alteplase is indicated if the patient presents within the 4.5-hour therapeutic window and has no contraindications."
+            },
+            {
+                question: "35. An 85-year-old woman falls and presents with a shortened and externally rotated right leg. An X-ray confirms a fractured neck of femur. What is the definitive management?",
+                options: ["A) Bed rest and traction", "B) A plaster cast", "C) Pain management and physiotherapy", "D) Surgical fixation or hip replacement", "E) A knee brace"],
+                answer: "D) Surgical fixation or hip replacement",
+                explanation: "Surgical intervention (such as a hip hemiarthroplasty or dynamic hip screw) is the standard of care for hip fractures in the elderly to allow for early mobilization and reduce complications."
+            },
+            {
+                question: "36. A 65-year-old man complains of difficulty starting urination, a weak stream, and waking up multiple times at night to urinate. Digital rectal exam reveals a smoothly enlarged prostate. What is the most likely diagnosis?",
+                options: ["A) Prostate cancer", "B) Urinary tract infection", "C) Benign Prostatic Hyperplasia (BPH)", "D) Urethral stricture", "E) Overactive bladder"],
+                answer: "C) Benign Prostatic Hyperplasia (BPH)",
+                explanation: "The gradual onset of lower urinary tract symptoms (LUTS) in an older male with a smoothly enlarged prostate is characteristic of BPH."
+            },
+            {
+                question: "37. A healthcare worker sustains a needlestick injury from a patient known to be Hepatitis C positive. What is the most appropriate immediate post-exposure management?",
+                options: ["A) Administer Hepatitis C immunoglobulin immediately", "B) Start a course of direct-acting antiviral medication", "C) Test the healthcare worker for HCV antibodies and perform baseline LFTs", "D) Administer the Hepatitis B vaccine", "E) Reassure and take no action"],
+                answer: "C) Test the healthcare worker for HCV antibodies and perform baseline LFTs",
+                explanation: "There is no recommended post-exposure prophylaxis for Hepatitis C. The standard protocol is to establish a baseline by testing the exposed person for anti-HCV and liver function, and then follow up with repeat testing to monitor for seroconversion."
+            },
+            {
+                question: "38. A 75-year-old man on long-term warfarin therapy for atrial fibrillation develops a urinary tract infection. Which antibiotic would most likely cause a dangerous increase in his INR?",
+                options: ["A) Nitrofurantoin", "B) Amoxicillin", "C) Ciprofloxacin", "D) Cephalexin", "E) Penicillin"],
+                answer: "C) Ciprofloxacin",
+                explanation: "Fluoroquinolones (like ciprofloxacin) and metronidazole are well-known inhibitors of the cytochrome P450 enzymes that metabolize warfarin, leading to a significant increase in INR and bleeding risk."
+            },
+            {
+                question: "39. A 4-year-old child presents with a fever and is pulling at her right ear. On otoscopy, the tympanic membrane is bulging and erythematous. What is the most likely diagnosis?",
+                options: ["A) Otitis externa", "B) Acute otitis media", "C) Serous otitis media (glue ear)", "D) Mastoiditis", "E) Foreign body in the ear"],
+                answer: "B) Acute otitis media",
+                explanation: "The combination of fever, ear pain (indicated by ear-pulling in a young child), and a bulging, red tympanic membrane are classic signs of acute otitis media, a middle ear infection."
+            },
+            {
+                question: "40. A 60-year-old woman presents with sudden onset of severe right eye pain, blurred vision, and seeing halos around lights. The eye is red, and the pupil is mid-dilated and non-reactive. What is the most likely diagnosis?",
+                options: ["A) Conjunctivitis", "B) Anterior uveitis", "C) Corneal abrasion", "D) Acute angle-closure glaucoma", "E) Retinal detachment"],
+                answer: "D) Acute angle-closure glaucoma",
+                explanation: "This constellation of symptoms is the classic presentation of acute angle-closure glaucoma, an ophthalmologic emergency caused by a sudden increase in intraocular pressure."
+            },
+            {
+                question: "41. An 82-year-old man becomes acutely confused and agitated two days after a hip replacement surgery. He is disoriented and his level of consciousness fluctuates. What is the most likely diagnosis?",
+                options: ["A) Dementia", "B) Depression", "C) Delirium", "D) Stroke", "E) Acute psychosis"],
+                answer: "C) Delirium",
+                explanation: "Delirium is characterized by an acute onset, fluctuating course, inattention, and disorganized thinking. It is very common in elderly patients, especially post-operatively."
+            },
+            {
+                question: "42. A 45-year-old woman complains of fatigue, weight gain, constipation, and feeling cold. Her TSH level is 12.5 mIU/L (high) and her free T4 is 0.6 ng/dL (low). What is the diagnosis?",
+                options: ["A) Hyperthyroidism", "B) Subclinical hypothyroidism", "C) Primary hypothyroidism", "D) Pituitary adenoma", "E) Hashimoto's thyroiditis"],
+                answer: "C) Primary hypothyroidism",
+                explanation: "The combination of classic hypothyroid symptoms with a high TSH and a low free T4 indicates that the thyroid gland itself is failing, which is defined as primary hypothyroidism. Hashimoto's is a common cause, but the diagnosis from the labs is primary hypothyroidism."
+            },
+            {
+                question: "43. A 65-year-old man presents with crushing chest pain. His ECG shows ST-segment elevation in leads II, III, and aVF. Occlusion of which coronary artery is the most likely cause?",
+                options: ["A) Left anterior descending (LAD) artery", "B) Left circumflex artery", "C) Right coronary artery (RCA)", "D) Left main coronary artery", "E) A diagonal branch"],
+                answer: "C) Right coronary artery (RCA)",
+                explanation: "ST elevation in the inferior leads (II, III, aVF) corresponds to an inferior wall myocardial infarction, which is most commonly caused by occlusion of the right coronary artery."
+            },
+            {
+                question: "44. A 55-year-old woman who recently had knee surgery presents with sudden onset of shortness of breath and pleuritic chest pain. Her heart rate is 110 bpm and her oxygen saturation is 92%. What is the most appropriate initial imaging study to confirm the suspected diagnosis?",
+                options: ["A) Chest X-ray", "B) V/Q scan", "C) CT Pulmonary Angiogram (CTPA)", "D) Echocardiogram", "E) Doppler ultrasound of the legs"],
+                answer: "C) CT Pulmonary Angiogram (CTPA)",
+                explanation: "The presentation is highly suggestive of a pulmonary embolism (PE). CTPA is the gold-standard imaging modality for diagnosing PE due to its high sensitivity and specificity."
+            },
+            {
+                question: "45. A 30-year-old presents with a long history of bloating, flatulence, and chronic diarrhea with foul-smelling stools. Serology is positive for anti-tissue transglutaminase (tTG) IgA antibodies. What is the most likely diagnosis?",
+                options: ["A) Irritable bowel syndrome (IBS)", "B) Crohn's disease", "C) Ulcerative colitis", "D) Celiac disease", "E) Lactose intolerance"],
+                answer: "D) Celiac disease",
+                explanation: "Malabsorptive symptoms combined with positive anti-tTG antibodies are highly specific for celiac disease, an autoimmune disorder triggered by gluten."
+            },
+            {
+                question: "46. A patient in the ICU with pneumonia has a blood pressure of 80/50 mmHg despite receiving 3 liters of IV fluids. Her lactate level is 4.5 mmol/L. What is the most likely diagnosis?",
+                options: ["A) Hypovolemic shock", "B) Cardiogenic shock", "C) Anaphylactic shock", "D) Septic shock", "E) Dehydration"],
+                answer: "D) Septic shock",
+                explanation: "Septic shock is defined as sepsis-induced hypotension that persists despite adequate fluid resuscitation, along with evidence of end-organ hypoperfusion (indicated by the high lactate)."
+            },
+            {
+                question: "47. A 28-year-old man is brought in by his family due to a week of sleeping only 2 hours per night, talking constantly, and spending thousands of dollars on a new business venture he believes will change the world. This is a significant change from his usual self. What is the most likely diagnosis?",
+                options: ["A) Schizophrenia", "B) Generalized anxiety disorder", "C) Major depressive disorder with psychotic features", "D) Bipolar I disorder, manic episode", "E) ADHD"],
+                answer: "D) Bipolar I disorder, manic episode",
+                explanation: "The distinct period of elevated/irritable mood, decreased need for sleep, grandiosity, and impulsive behavior are hallmark features of a manic episode, characteristic of Bipolar I Disorder."
+            },
+            {
+                question: "48. A healthy 2-year-old develops a fever of 39.5°C (103.1°F) and has a 2-minute generalized tonic-clonic seizure. He recovers quickly and is back to his baseline within 15 minutes. What is the most likely diagnosis?",
+                options: ["A) Epilepsy", "B) Meningitis", "C) Simple febrile seizure", "D) Complex febrile seizure", "E) Encephalitis"],
+                answer: "C) Simple febrile seizure",
+                explanation: "A simple febrile seizure is a generalized seizure lasting less than 15 minutes, occurring with a fever in a child aged 6 months to 5 years, without a prior neurological condition, and not recurring within 24 hours. The management is primarily reassurance."
+            },
+            {
+                question: "49. A 30-year-old woman at 34 weeks gestation presents for a routine check-up. Her blood pressure is 150/100 mmHg, and urine dipstick shows 2+ proteinuria. She has no prior history of hypertension. What is the most likely diagnosis?",
+                options: ["A) Gestational hypertension", "B) Chronic hypertension", "C) Pre-eclampsia", "D) Eclampsia", "E) HELLP syndrome"],
+                answer: "C) Pre-eclampsia",
+                explanation: "Pre-eclampsia is defined as new-onset hypertension (≥140/90 mmHg) after 20 weeks of gestation accompanied by proteinuria or other signs of end-organ damage."
+            },
+            {
+                question: "50. A 70-year-old man presents with a 2-day history of constant left lower quadrant pain, fever, and nausea. A CT scan confirms uncomplicated sigmoid diverticulitis. What is the most appropriate initial management in a stable patient?",
+                options: ["A) Emergency sigmoid colectomy", "B) IV antibiotics and hospital admission", "C) Clear liquid diet and oral antibiotics as an outpatient", "D) Colonoscopy", "E) A high-fiber diet"],
+                answer: "C) Clear liquid diet and oral antibiotics as an outpatient",
+                explanation: "For uncomplicated diverticulitis in a patient who is otherwise well, outpatient management with bowel rest (clear liquid diet) and a course of oral antibiotics is a safe and effective treatment strategy."
             }
+
         ];
 
         // DOM Elements
@@ -335,7 +398,7 @@
 
         let timerInterval;
         let userAnswers = {};
-        const PASS_MARK = 15;
+        const PASS_MARK = 25;
         
         // --- Functions ---
 
@@ -469,8 +532,8 @@
         startBtn.addEventListener('click', () => {
             startScreen.classList.add('hidden');
             quizScreen.classList.remove('hidden');
-            const fortyFiveMinutes = 60 * 45;
-            startTimer(fortyFiveMinutes);
+            const sixtyMinutes = 60 * 60;
+            startTimer(sixtyMinutes);
             buildQuiz();
         });
 
@@ -482,3 +545,4 @@
 
 </body>
 </html>
+
