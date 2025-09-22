@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shahrirar's Medical Academy Mock Exam</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .quiz-option.selected {
+            background-color: #dbeafe; /* Tailwind's blue-200 */
+            border-color: #3b82f6; /* Tailwind's blue-500 */
+        }
+        .quiz-option.correct {
+            background-color: #dcfce7; /* Tailwind's green-200 */
+            border-color: #22c55e; /* Tailwind's green-500 */
+        }
+        .quiz-option.incorrect {
+            background-color: #fee2e2; /* Tailwind's red-200 */
+            border-color: #ef4444; /* Tailwind's red-500 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 flex items-center justify-center min-h-screen">
+
+    <div id="container" class="w-full max-w-4xl mx-auto p-4 md:p-8">
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="text-center bg-white p-8 rounded-xl shadow-lg">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-700 mb-2">Shahrirar's Medical Academy</h1>
+            <p class="text-xl text-gray-600 mb-6">Mock Exam</p>
+            <p class="text-gray-500 mb-2">You will have <span class="font-bold">45 minutes</span> to complete <span class="font-bold">20 questions</span>.</p>
+            <p class="text-gray-500 mb-8">The pass mark is <span class="font-bold">15 out of 20</span>.</p>
+            <button id="start-btn" class="bg-blue-600 text-white font-bold py-3 px-10 rounded-lg hover:bg-blue-700 transition-colors text-lg shadow-md">
+                Start Exam
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden">
+            <div class="bg-white p-4 sm:p-6 rounded-xl shadow-lg sticky top-0 z-10 mb-6">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-bold text-gray-700">Shahrirar's Medical Academy</h2>
+                    <div id="timer" class="text-xl font-bold bg-blue-100 text-blue-700 px-4 py-2 rounded-lg">45:00</div>
+                </div>
+            </div>
+
+            <div id="quiz-container" class="space-y-6">
+                <!-- Questions will be injected here by JavaScript -->
+            </div>
+
+            <div class="mt-8 text-center">
+                <button id="submit-btn" class="bg-green-600 text-white font-bold py-3 px-10 rounded-lg hover:bg-green-700 transition-colors text-lg shadow-md">
+                    Submit Exam
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden">
+             <div class="bg-white p-8 rounded-xl shadow-lg text-center mb-6">
+                <h2 class="text-3xl font-bold text-gray-700 mb-4">Exam Results</h2>
+                <p class="text-4xl font-extrabold mb-4" id="score-text"></p>
+                <p class="text-2xl font-semibold p-3 rounded-lg" id="pass-fail-text"></p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+                <h3 class="text-2xl font-bold text-gray-700 mb-6 text-center">Review Your Answers</h3>
+                 <div id="review-container" class="space-y-6">
+                    <!-- Reviewed questions will be injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "1. A 25-year-old male presents to the ED after a fall onto an outstretched hand. His left elbow is visibly deformed and he is in severe pain. An X-ray confirms a posterior elbow dislocation. On examination, you note he is unable to extend his thumb (\"hitchhiker's sign\"). What is the most appropriate immediate management?",
+                options: [
+                    "A) Application of an arm sling and outpatient orthopedic follow-up",
+                    "B) Immediate closed reduction of the dislocation in the ED under procedural sedation",
+                    "C) Urgent transfer to the operating theatre for open reduction and internal fixation",
+                    "D) CT angiogram to rule out vascular injury",
+                    "E) Application of a backslab and admission for observation"
+                ],
+                answer: "B) Immediate closed reduction of the dislocation in the ED under procedural sedation",
+                explanation: "An elbow dislocation is an orthopedic emergency. The inability to extend the thumb suggests a posterior interosseous nerve injury, which is often a temporary traction injury (neurapraxia) that is likely to recover once the joint is reduced. Prompt reduction is the priority."
+            },
+            {
+                question: "2. A 22-year-old elite rugby player presents with his fifth anterior shoulder dislocation in the past year. Each time, it has been successfully reduced in the ED. He is keen to return to playing as soon as possible. What is the most definitive management for his condition?",
+                options: [
+                    "A) Intensive physiotherapy focusing on rotator cuff strengthening",
+                    "B) A prolonged period of shoulder immobilisation in a sling",
+                    "C) Referral for surgical fixation (e.g., Bankart repair or Latarjet procedure)",
+                    "D) Activity modification to avoid contact sports permanently",
+                    "E) Regular intra-articular steroid injections for pain management"
+                ],
+                answer: "C) Referral for surgical fixation (e.g., Bankart repair or Latarjet procedure)",
+                explanation: "In a young, active patient with recurrent instability, the soft tissue stabilizers (labrum, ligaments) are often permanently damaged. Physiotherapy alone is insufficient, and surgery is required to restore stability and prevent long-term joint damage."
+            },
+            {
+                question: "3. The mother of a 6-month-old girl is concerned about a large, raised, red lesion on her daughter's left upper eyelid that has been growing since birth. You diagnose an infantile hemangioma. The mother expresses fear of medication and refuses your initial recommendation of topical timolol. What is the most appropriate next step?",
+                options: [
+                    "A) Reassure the mother that these lesions usually resolve spontaneously and require no treatment.",
+                    "B) Refer the child for surgical excision of the lesion.",
+                    "C) Prescribe oral propranolol without further discussion.",
+                    "D) Gently explain the risk of amblyopia (vision loss) from the eyelid obstruction and re-offer treatment.",
+                    "E) Document the mother's refusal and schedule a follow-up in 6 months."
+                ],
+                answer: "D) Gently explain the risk of amblyopia (vision loss) from the eyelid obstruction and re-offer treatment.",
+                explanation: "The physician's duty is to advocate for the child. An eyelid hemangioma can obstruct the visual axis, leading to permanent vision loss (amblyopia). The next step is to ensure the parents fully understand this serious risk to make an informed decision."
+            },
+            {
+                question: "4. A newborn's screening test shows a highly elevated immunoreactive trypsinogen (IRT) level. A repeat test at two weeks is also elevated. Genetic testing for common CFTR mutations is not readily available at your centre. What is the definitive diagnostic test?",
+                options: [
+                    "A) Chest X-ray",
+                    "B) Stool elastase measurement",
+                    "C) Sweat chloride test",
+                    "D) Pancreatic ultrasound",
+                    "E) empiric trial of pancreatic enzymes"
+                ],
+                answer: "C) Sweat chloride test",
+                explanation: "The sweat chloride test is the gold standard for diagnosing cystic fibrosis (CF). Elevated IRT is a screening indicator but not diagnostic. The sweat test demonstrates the dysfunction of the CFTR protein, which is the underlying cause of CF."
+            },
+            {
+                question: "5. An 8-year-old boy is brought in by his parents due to concerns about repetitive movements. They report that for the past year, he has had periods of excessive eye blinking and shoulder shrugging. Over the last three months, he has also developed a sniffing and throat-clearing sound. These movements worsen with stress. What is the most likely diagnosis?",
+                options: [
+                    "A) Simple motor tic disorder",
+                    "B) Obsessive-compulsive disorder (OCD)",
+                    "C) Tourette syndrome",
+                    "D) ADHD",
+                    "E) Seizure disorder"
+                ],
+                answer: "C) Tourette syndrome",
+                explanation: "The diagnosis of Tourette syndrome requires at least two motor tics and at least one vocal tic, present for over a year, with onset before age 18. The patient's history meets these criteria perfectly."
+            },
+            {
+                question: "6. A 52-year-old woman, whose last menstrual period was 18 months ago, presents with severe hot flushes and night sweats that are affecting her quality of life. She has no personal history of breast cancer, VTE, or heart disease. She has an intact uterus. What is the most appropriate MHT regimen for her?",
+                options: [
+                    "A) Estrogen-only therapy",
+                    "B) Tibolone",
+                    "C) Combined continuous estrogen and progesterone therapy",
+                    "D) An SSRI such as venlafaxine",
+                    "E) Testosterone implants"
+                ],
+                answer: "C) Combined continuous estrogen and progesterone therapy",
+                explanation: "In a woman with a uterus, estrogen-only therapy increases the risk of endometrial cancer. A progestogen must be included to protect the endometrium. A continuous combined regimen is a standard option."
+            },
+            {
+                question: "7. A patient who is 14 weeks pregnant presents to the emergency department with an inability to pass urine for 12 hours. On examination, her bladder is palpably distended. On vaginal examination, the cervix is positioned very anteriorly and high up behind the pubic symphysis. What is the most likely cause of her urinary retention?",
+                options: [
+                    "A) A urinary tract infection",
+                    "B) An incarcerated retroverted uterus",
+                    "C) A large ovarian cyst",
+                    "D) A fibroid compressing the urethra",
+                    "E) Neurological dysfunction"
+                ],
+                answer: "B) An incarcerated retroverted uterus",
+                explanation: "This is the classic presentation where a growing, retroverted uterus becomes trapped in the pelvis, pushing the cervix up and forward, which stretches and obstructs the urethra."
+            },
+            {
+                question: "8. A 35-year-old G2P1 woman, with a history of a previous lower segment caesarean section, is in active labor. She suddenly screams in pain, reporting severe, constant abdominal pain. Her contractions, which were previously strong, abruptly stop. You note some vaginal bleeding, and the fetal heart rate drops to 60 bpm. On vaginal examination, the baby's head is no longer palpable. What is the most likely diagnosis?",
+                options: [
+                    "A) Placental abruption",
+                    "B) Uterine rupture",
+                    "C) Cord prolapse",
+                    "D) Amniotic fluid embolism",
+                    "E) Vasa previa"
+                ],
+                answer: "B) Uterine rupture",
+                explanation: "The triad of ceasing contractions, loss of fetal station, and profound fetal bradycardia is pathognomonic for a catastrophic uterine rupture, which is an emergency."
+            },
+            {
+                question: "9. A 28-year-old G1P0 woman has a routine vaginal swab at 36 weeks gestation which comes back positive for Group B Streptococcus (GBS). She is asymptomatic. What is the recommended management?",
+                options: [
+                    "A) Prescribe a course of oral amoxicillin immediately.",
+                    "B) Schedule an elective caesarean section to avoid transmission.",
+                    "C) Intrapartum antibiotic prophylaxis (IAP) with intravenous penicillin.",
+                    "D) No treatment is required as she is only a carrier.",
+                    "E) Treat with vaginal chlorhexidine washes during labour."
+                ],
+                answer: "C) Intrapartum antibiotic prophylaxis (IAP) with intravenous penicillin.",
+                explanation: "The standard of care is to give IV penicillin during labor (intrapartum) to prevent transmission to the newborn, which can cause serious neonatal infections. Treatment before labor is ineffective."
+            },
+            {
+                question: "10. You are a GP in a small town. A patient you have been treating for anxiety tells you she is being bullied at work by her boss, making her symptoms worse. You realize that her boss is a close personal friend of yours. What is the most appropriate course of action?",
+                options: [
+                    "A) Call your friend (the boss) to discuss the situation and mediate.",
+                    "B) Tell the patient you cannot be objective and transfer her care to another doctor.",
+                    "C) Advise the patient on her rights and options for reporting workplace issues.",
+                    "D) Prescribe an increased dose of anxiolytic medication for the patient.",
+                    "E) Document the conversation and take no further action."
+                ],
+                answer: "C) Advise the patient on her rights and options for reporting workplace issues.",
+                explanation: "The GP's primary duty is to the patient. The correct action is to empower the patient with impartial advice and resources, without breaching confidentiality or acting on the dual relationship."
+            },
+            {
+                question: "11. A 60-year-old man falls from a ladder in a remote rural location. He is brought to the local clinic with a GCS of 4. He is immediately intubated and ventilated. The nearest trauma centre is a 3-hour flight away. What is the most important intervention to initiate while awaiting retrieval?",
+                options: [
+                    "A) Administer a bolus of 20% Mannitol.",
+                    "B) Administer high-dose steroids.",
+                    "C) Induce hypothermia.",
+                    "D) Obtain a CT scan of the head.",
+                    "E) Administer prophylactic antibiotics."
+                ],
+                answer: "A) Administer a bolus of 20% Mannitol.",
+                explanation: "A GCS of 4 indicates a severe traumatic brain injury with high risk of elevated intracranial pressure (ICP). Administering an osmotic agent like mannitol is a critical first-line measure to reduce cerebral edema and lower ICP while awaiting transfer."
+            },
+            {
+                question: "12. A 48-year-old man presents with a 2-day history of left-sided weakness. A CT scan of his brain shows an acute infarct in the right middle cerebral artery territory. His blood work is positive for ANA, anticardiolipin antibodies, and anti-dsDNA antibodies. What is the most appropriate long-term management?",
+                options: [
+                    "A) Immunosuppressants and anticoagulants.",
+                    "B) Aspirin only.",
+                    "C) Statin therapy only.",
+                    "D) Thrombolysis with tPA.",
+                    "E) Physiotherapy and rehabilitation only."
+                ],
+                answer: "A) Immunosuppressants and anticoagulants.",
+                explanation: "The findings suggest a stroke caused by Antiphospholipid Syndrome (APS) secondary to Systemic Lupus Erythematosus (SLE). Treatment must address both the underlying autoimmunity (immunosuppressants) and the high risk of blood clots (anticoagulation)."
+            },
+            {
+                question: "13. A 40-year-old woman asks about screening for colorectal cancer. Her father was diagnosed with colorectal cancer at the age of 62. She is otherwise healthy with no symptoms. According to standard guidelines, what is the most appropriate advice?",
+                options: [
+                    "A) Start Faecal Occult Blood Testing (FOBT) annually from age 45.",
+                    "B) Start screening colonoscopy now, and repeat every 5 years.",
+                    "C) Genetic testing for Lynch syndrome.",
+                    "D) No screening is needed until age 50.",
+                    "E) A flexible sigmoidoscopy every 10 years."
+                ],
+                answer: "A) Start Faecal Occult Blood Testing (FOBT) annually from age 45.",
+                explanation: "She is considered at average or slightly increased risk. Having one first-degree relative diagnosed over age 60 does not place her in a high-risk category requiring early colonoscopy. Standard guidelines recommend starting screening (like FOBT/FIT) at age 45-50."
+            },
+            {
+                question: "14. A 24-year-old pregnant woman with hyperemesis gravidarum is given IV metoclopramide. Thirty minutes later, she develops a fixed upward deviation of her eyes and involuntary twisting of her neck. What is the most appropriate treatment?",
+                options: [
+                    "A) Intravenous diazepam.",
+                    "B) Intravenous benztropine or procyclidine.",
+                    "C) Intravenous magnesium sulfate.",
+                    "D) Oral diphenhydramine.",
+                    "E) Reassurance, as this is a self-limiting reaction."
+                ],
+                answer: "B) Intravenous benztropine or procyclidine.",
+                explanation: "This is a classic acute dystonic reaction caused by dopamine blockade. The treatment is an anticholinergic agent like benztropine or procyclidine to rapidly reverse the symptoms."
+            },
+            {
+                question: "15. A clinical trial compares the efficacy of Hepatitis B Vaccine versus Hepatitis B Immunoglobulin (IG) in preventing infection after exposure. The infection risk in the Vaccine group was 4.4%, and the risk in the IG group was 3.3%. What is the most accurate conclusion that can be drawn from this data alone?",
+                options: [
+                    "A) Hepatitis B IG is statistically significantly better than the vaccine.",
+                    "B) Neither treatment is effective.",
+                    "C) The efficacy of Hepatitis B IG was observed to be better than the vaccine in this trial.",
+                    "D) The vaccine is more cost-effective.",
+                    "E) The number needed to treat is 100."
+                ],
+                answer: "C) The efficacy of Hepatitis B IG was observed to be better than the vaccine in this trial.",
+                explanation: "This is the most accurate and cautious interpretation of the provided data. Without statistical analysis (p-values), one can only state what was observed in the sample, not that one is definitively superior."
+            },
+            {
+                question: "16. An 80-year-old man with a history of heart failure and benign prostatic hyperplasia presents with painful bilateral breast enlargement. His regular medications include spironolactone, ramipril, and tamsulosin. Which of his medications is the most likely cause?",
+                options: [
+                    "A) Spironolactone",
+                    "B) Ramipril",
+                    "C) Tamsulosin",
+                    "D) All three medications",
+                    "E) None of the above"
+                ],
+                answer: "A) Spironolactone",
+                explanation: "Spironolactone is a well-known cause of gynecomastia due to its anti-androgenic effects (androgen receptor antagonist)."
+            },
+            {
+                question: "17. A 75-year-old woman with moderate Alzheimer's disease is brought in by her husband. He reports that she is becoming more forgetful and is starting to wander. He admits he is exhausted and feels he can no longer cope as her sole caregiver. What is the most important aspect of her ongoing management?",
+                options: [
+                    "A) Increasing the dose of her donepezil.",
+                    "B) Prescribing a sedative for her wandering.",
+                    "C) Providing caregiver support and education.",
+                    "D) Admission to a long-term care facility.",
+                    "E) Ordering a repeat MRI of the brain."
+                ],
+                answer: "C) Providing caregiver support and education.",
+                explanation: "A critical component of dementia management is supporting the caregiver. Caregiver burnout is common and leads to poorer outcomes for both the patient and caregiver. Support can include education, respite care, and support groups."
+            },
+            {
+                question: "18. A 25-year-old man presents with a history of recurrent chest infections and chronic sinusitis since childhood. He and his partner have also been struggling with infertility. A chest X-ray performed for his cough reveals dextrocardia. What is the most likely underlying diagnosis?",
+                options: [
+                    "A) Cystic Fibrosis",
+                    "B) Young's Syndrome",
+                    "C) Kartagener Syndrome",
+                    "D) Alpha-1 antitrypsin deficiency",
+                    "E) Common variable immunodeficiency"
+                ],
+                answer: "C) Kartagener Syndrome",
+                explanation: "Kartagener syndrome is defined by the triad of situs inversus (dextrocardia), chronic sinusitis, and bronchiectasis. The underlying cause is immotile cilia, which also explains the male infertility."
+            },
+            {
+                question: "19. A 68-year-old man with stable COPD reports increasing breathlessness on exertion. He is currently using ipratropium bromide (a short-acting anticholinergic) as needed, about 3-4 times a day. His FEV1 is 60% of predicted. What is the most appropriate next step in his management?",
+                options: [
+                    "A) A short course of oral corticosteroids.",
+                    "B) A long-acting beta-agonist (LABA) or long-acting muscarinic antagonist (LAMA).",
+                    "C) Long-term oxygen therapy.",
+                    "D) An inhaled corticosteroid (ICS).",
+                    "E) A daily oral theophylline."
+                ],
+                answer: "B) A long-acting beta-agonist (LABA) or long-acting muscarinic antagonist (LAMA).",
+                explanation: "For stable COPD requiring more than a short-acting reliever, the standard of care is to add a scheduled long-acting maintenance bronchodilator (LABA or LAMA) to improve symptoms and reduce exacerbations."
+            },
+            {
+                question: "20. A 65-year-old woman is scheduled for a total knee replacement in two weeks. Her pre-operative blood work shows a hemoglobin of 125 g/L (normal), but her serum ferritin is 15 ng/mL (low). What is the most appropriate management?",
+                options: [
+                    "A) Start oral iron supplements.",
+                    "B) Arrange for an infusion of intravenous (IV) iron.",
+                    "C) Proceed with surgery without any treatment.",
+                    "D) Postpone the surgery for three months.",
+                    "E) Transfuse one unit of packed red blood cells."
+                ],
+                answer: "B) Arrange for an infusion of intravenous (IV) iron.",
+                explanation: "Correcting iron deficiency before surgery is important. With only two weeks, oral iron is too slow. IV iron will replete iron stores much more quickly and is the preferred method in this pre-operative timeframe."
+            }
+        ];
+
+        // DOM Elements
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        const startBtn = document.getElementById('start-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const quizContainer = document.getElementById('quiz-container');
+        const reviewContainer = document.getElementById('review-container');
+        const timerEl = document.getElementById('timer');
+        const scoreTextEl = document.getElementById('score-text');
+        const passFailTextEl = document.getElementById('pass-fail-text');
+
+        let timerInterval;
+        let userAnswers = {};
+        const PASS_MARK = 15;
+        
+        // --- Functions ---
+
+        function startTimer(duration) {
+            let timer = duration;
+            let minutes, seconds;
+            timerInterval = setInterval(() => {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                timerEl.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    clearInterval(timerInterval);
+                    submitExam();
+                }
+            }, 1000);
+        }
+
+        function buildQuiz() {
+            quizData.forEach((item, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'bg-white p-6 rounded-xl shadow-lg';
+                
+                const questionText = document.createElement('p');
+                questionText.className = 'text-lg font-semibold mb-4';
+                questionText.textContent = item.question;
+                questionDiv.appendChild(questionText);
+
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'space-y-3';
+                optionsDiv.id = `q${index}-options`;
+
+                item.options.forEach(option => {
+                    const label = document.createElement('label');
+                    label.className = 'quiz-option block p-4 border-2 border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors';
+                    
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = `question${index}`;
+                    radio.value = option;
+                    radio.className = 'mr-3';
+
+                    label.appendChild(radio);
+                    label.appendChild(document.createTextNode(option));
+                    optionsDiv.appendChild(label);
+
+                    label.addEventListener('click', () => {
+                        userAnswers[index] = option;
+                        // Handle visual selection
+                        document.querySelectorAll(`#q${index}-options label`).forEach(l => l.classList.remove('selected'));
+                        label.classList.add('selected');
+                    });
+                });
+                
+                questionDiv.appendChild(optionsDiv);
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+        
+        function submitExam() {
+            clearInterval(timerInterval);
+            let score = 0;
+            quizData.forEach((item, index) => {
+                if (userAnswers[index] === item.answer) {
+                    score++;
+                }
+            });
+
+            scoreTextEl.textContent = `You scored ${score} out of ${quizData.length}`;
+            if(score >= PASS_MARK) {
+                passFailTextEl.textContent = "Congratulations! You Passed!";
+                passFailTextEl.className = 'text-2xl font-semibold p-3 rounded-lg bg-green-100 text-green-700';
+            } else {
+                 passFailTextEl.textContent = "Unfortunately, you did not pass. Keep studying!";
+                 passFailTextEl.className = 'text-2xl font-semibold p-3 rounded-lg bg-red-100 text-red-700';
+            }
+            
+            showReview();
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+        }
+
+        function showReview() {
+            quizData.forEach((item, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'p-5 border-b border-gray-200';
+                
+                const questionText = document.createElement('p');
+                questionText.className = 'text-lg font-semibold mb-4';
+                questionText.textContent = item.question;
+                questionDiv.appendChild(questionText);
+
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'space-y-3';
+
+                item.options.forEach(option => {
+                    const optionLabel = document.createElement('div');
+                    optionLabel.className = 'quiz-option block p-4 border-2 border-gray-200 rounded-lg';
+                    optionLabel.textContent = option;
+
+                    const isCorrect = option === item.answer;
+                    const isUserChoice = userAnswers[index] === option;
+
+                    if(isCorrect) {
+                        optionLabel.classList.add('correct');
+                    } else if (isUserChoice && !isCorrect) {
+                        optionLabel.classList.add('incorrect');
+                    }
+                    
+                    optionsDiv.appendChild(optionLabel);
+                });
+                
+                questionDiv.appendChild(optionsDiv);
+
+                // Show Explanation
+                const explanationDiv = document.createElement('div');
+                explanationDiv.className = 'mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg';
+                explanationDiv.innerHTML = `<strong class="text-yellow-800">Explanation:</strong><p class="text-yellow-700">${item.explanation}</p>`;
+                questionDiv.appendChild(explanationDiv);
+
+                reviewContainer.appendChild(questionDiv);
+            });
+        }
+
+        // --- Event Listeners ---
+        
+        startBtn.addEventListener('click', () => {
+            startScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            const fortyFiveMinutes = 60 * 45;
+            startTimer(fortyFiveMinutes);
+            buildQuiz();
+        });
+
+        submitBtn.addEventListener('click', () => {
+            submitExam();
+        });
+
+    </script>
+
+</body>
+</html>
